@@ -25,17 +25,17 @@ exports.up = async function (knex) {
         })
         .createTable("classes", tbl => {
             tbl.increments();
-            tbl.text("class_name").unique().notNullable();
-            tbl.integer("instructor_id")
-                .unsigned()
+            tbl.text("class_name").notNullable();
+            tbl.text("instructor")
+                /* .unsigned() */
                 .notNullable()
-                .references("id")
+               /*  .references("id")
                 .inTable("users")
                 .onUpdate("CASCADE")
-                .onDelete("CASCADE");
+                .onDelete("CASCADE"); */
             tbl.integer("type_id")
                 .unsigned()
-                .notNullable()
+                //.notNullable()
                 .references("id")
                 .inTable("types")
                 .onUpdate("CASCADE")

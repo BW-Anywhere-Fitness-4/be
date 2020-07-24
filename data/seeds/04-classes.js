@@ -2,7 +2,7 @@ exports.seed = async function (knex) {
     await knex("classes").insert([
         {
             class_name: "Jogging",
-            instructor_id: 1,
+            instructor: "chris",
             type_id: 1,
             class_date: "2020-07-25",
             class_time: "09:00:00",
@@ -14,7 +14,7 @@ exports.seed = async function (knex) {
         },
         {
             class_name: "Weight Training 101",
-            instructor_id: 5,
+            instructor: "danny",
             type_id: 2,
             class_date: "2020-07-26",
             class_time: "11:00:00",
@@ -26,7 +26,7 @@ exports.seed = async function (knex) {
         },
         {
             class_name: "Swimming 101",
-            instructor_id: 6,
+            instructor: "jamal" ,
             type_id: 1,
             class_date: "2020-07-29",
             class_time: "15:30:00",
@@ -38,7 +38,7 @@ exports.seed = async function (knex) {
         },
         {
             class_name: "Tai Chi",
-            instructor_id: 13,
+            instructor: "ronnie",
             type_id: 4,
             class_date: "2020-08-02",
             class_time: "14:00:00",
@@ -50,7 +50,7 @@ exports.seed = async function (knex) {
         },
         {
             class_name: "Yoga 101",
-            instructor_id: 13,
+            instructor: "jessie",
             type_id: 3,
             class_date: "2020-08-04",
             class_time: "13:30:00",
@@ -62,7 +62,7 @@ exports.seed = async function (knex) {
         },
         {
             class_name: "Running 101",
-            instructor_id: 1,
+            instructor: "salah",
             type_id: 1,
             class_date: "2020-08-07",
             class_time: "10:00:00",
