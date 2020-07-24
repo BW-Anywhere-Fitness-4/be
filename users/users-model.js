@@ -47,7 +47,7 @@ function findByRole(role_id) {
 }
 
 function findBy(filter) {
-    return db("users").where(filter);
+    return db("users").select("id", "username", "password").where(filter);
 }
 
 // adds a user object to the database

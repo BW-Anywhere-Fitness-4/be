@@ -47,29 +47,10 @@ exports.up = async function (knex) {
             tbl.text("location").notNullable();
             tbl.integer("number_of_attendees").notNullable();
             tbl.integer("max_class_size").notNullable();
-        })
-        .createTable("classes_clients", tbl => {
-            tbl.integer("class_id")
-                .unsigned()
-                .notNullable()
-                .references("id")
-                .inTable("classes")
-                .onDelete("CASCADE")
-                .onUpdate("CASCADE");
-            tbl.integer("client_id")
-                .unsigned()
-                .notNullable()
-                .references("id")
-                .inTable("users")
-                .onDelete("CASCADE")
-                .onUpdate("CASCADE");
-
-            tbl.primary(["class_id", "client_id"]);
         });
 };
 
 exports.down = async function (knex) {
-    await knex.schema.dropTableIfExists("classes_clients");
     await knex.schema.dropTableIfExists("classes");
     await knex.schema.dropTableIfExists("types");
     await knex.schema.dropTableIfExists("users");
