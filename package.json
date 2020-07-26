@@ -4,7 +4,10 @@
   "description": "Backend for BW-Anywhere-Fitness-4",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js"
+    "server": "cross-env NODE_ENV=development nodemon index.js",
+    "test": "cross-env NODE_ENV=testing jest",
+    "test:watch": "cross-env NODE_ENV=testing jest --watch",
+    "start": "cross-env NODE_ENV=production node index.js"
   },
   "repository": {
     "type": "git",
@@ -34,5 +37,8 @@
     "jest": "^26.1.0",
     "nodemon": "^2.0.4",
     "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
