@@ -7,6 +7,10 @@ const restrict = require("../middleware/restrict");
 
 const router = express.Router();
 
+//=================
+// GET list of users
+//=================
+
 router.get("/api/users", restrict(), async (req, res, next) => {
   try {
     res.json(await Users.find());
@@ -15,9 +19,20 @@ router.get("/api/users", restrict(), async (req, res, next) => {
   }
 });
 
+//=================
+// POST :: Register New User
+//=================
+
 router.post("/api/register", async (req, res, next) => {
   try {
-    const { username, password } = req.body;
+    const {
+      first_name,
+      last_name,
+      email,
+      username,
+      password,
+      role_id,
+    } = req.body;
     const user = await Users.findBy({ username }).first();
 
     if (user) {
@@ -27,8 +42,12 @@ router.post("/api/register", async (req, res, next) => {
     }
 
     const newUser = await Users.add({
+      first_name,
+      last_name,
+      email,
       username,
       password: await bcrypt.hash(password, 10),
+      role_id,
     });
 
     res.status(201).json(newUser);
@@ -37,7 +56,9 @@ router.post("/api/register", async (req, res, next) => {
   }
 });
 
-
+//=================
+// POST :: LOGIN
+//=================
 
 router.post("/api/login", async (req, res, next) => {
   try {
@@ -72,15 +93,17 @@ router.post("/api/login", async (req, res, next) => {
   }
 });
 
+//=================
+// GET :: LOGOUT
+//=================
+
 router.get("/api/logout", async (req, res, next) => {
   try {
-    
     res.clearCookie("token");
-    res.send("cookie has been eaten")
-    
+    res.send("cookie has been eaten");
   } catch (err) {
     next(err);
   }
 });
 
-module.exports = router
+module.exports = router;
