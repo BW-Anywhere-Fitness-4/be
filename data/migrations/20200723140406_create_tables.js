@@ -6,14 +6,14 @@ exports.up = async function (knex) {
         })
         .createTable("users", tbl => {
             tbl.increments();
-            tbl.text("first_name").notNullable();
-            tbl.text("last_name").notNullable();
-            tbl.text("email").unique().notNullable();
-            tbl.text("username").unique().notNullable();
-            tbl.text("password").notNullable();
+            tbl.text("first_name");
+            tbl.text("last_name")
+            tbl.text("email").unique()
+            tbl.text("username").unique()
+            tbl.text("password")
             tbl.integer("role_id")
                 .unsigned()
-                .notNullable()
+                //.notNullable()
                 .references("id")
                 .inTable("roles")
                 .onDelete("CASCADE")
@@ -66,9 +66,19 @@ exports.up = async function (knex) {
 
             tbl.primary(["class_id", "client_id"]);
         });
+
+    /*     await knex.schema.createTable("users", (tbl) => {
+            tbl.increments()
+            tbl.text("first_name").notNull()
+            tbl.text("last_name").notNull()
+            tbl.text("email").notNull().unique()
+            tbl.text("username").notNull().unique()
+            tbl.text("password").notNull()
+        }) */
 };
 
 exports.down = async function (knex) {
+    /* await knex.schema.dropTableIfExists("users") */
     await knex.schema.dropTableIfExists("classes_clients");
     await knex.schema.dropTableIfExists("classes");
     await knex.schema.dropTableIfExists("types");

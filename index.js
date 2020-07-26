@@ -1,12 +1,22 @@
 const express = require("express");
 const cors = require("cors");
 const classesRouter = require("./classes/classes-router")
+const userRouter = require("./users/users-router")
+const cookieParser = require("cookie-parser")
+require("dotenv").config();
+
 
 const server = express();
 const port = process.env.PORT || 5000;
 
 server.use(cors());
 server.use(express.json());
+server.use(cookieParser())
+server.use(userRouter)
+server.use(classesRouter);
+
+
+
 
 server.get("/", (req, res) => {
     res.json({
@@ -14,7 +24,7 @@ server.get("/", (req, res) => {
     });
 });
 
-server.use(classesRouter);
+
 
 server.use((err, req, res, next) => {
     console.log(err);
