@@ -6,7 +6,7 @@ const Users = require("./users-model");
 const restrict = require("../middleware/restrict");
 
 // retrieve all users
-router.get("/api/users", restrict(0), async (req, res, next) => {
+router.get("/api/users", async (req, res, next) => {
     try {
         const users = await Users.findAll();
         res.json(users);
@@ -99,13 +99,14 @@ router.post("/api/users/login", async (req, res, next) => {
         const payload = {
             id: user.id,
             username: user.username,
-            role_id: user.role_id
+            role_id: user.role_id,
+            
         };
 
-        res.cookie(
-            "token",
-            jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" })
-        );
+        // res.cookie(
+        //     "token",
+        //     jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" })
+        // );
 
         res.json({
             message: `Welcome ${user.username}!`
