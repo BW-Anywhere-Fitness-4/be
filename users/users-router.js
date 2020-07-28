@@ -106,5 +106,16 @@ router.get("/api/logout", async (req, res, next) => {
   }
 });
 
+
+// retrieves users with the specified role
+router.get("/api/users/roles/:role_id", async (req, res, next) => {
+  try {
+      const users = await Users.findByRole(req.params.role_id);
+      res.json(users);
+  } catch (err) {
+      next(err);
+  }
+});
+
 module.exports = router;
 
