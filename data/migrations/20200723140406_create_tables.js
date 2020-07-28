@@ -6,14 +6,14 @@ exports.up = async function (knex) {
         })
         .createTable("users", tbl => {
             tbl.increments();
-            tbl.text("first_name").notNullable();
-            tbl.text("last_name").notNullable();
-            tbl.text("email").unique().notNullable();
-            tbl.text("username").unique().notNullable();
-            tbl.text("password").notNullable();
+            tbl.text("first_name");
+            tbl.text("last_name")
+            tbl.text("email").unique()
+            tbl.text("username").unique()
+            tbl.text("password")
             tbl.integer("role_id")
                 .unsigned()
-                .notNullable()
+                //.notNullable()
                 .references("id")
                 .inTable("roles")
                 .onDelete("CASCADE")
@@ -25,17 +25,17 @@ exports.up = async function (knex) {
         })
         .createTable("classes", tbl => {
             tbl.increments();
-            tbl.text("class_name").unique().notNullable();
-            tbl.integer("instructor_id")
-                .unsigned()
+            tbl.text("class_name").notNullable();
+            tbl.text("instructor")
+                /* .unsigned() */
                 .notNullable()
-                .references("id")
+               /*  .references("id")
                 .inTable("users")
                 .onUpdate("CASCADE")
-                .onDelete("CASCADE");
+                .onDelete("CASCADE"); */
             tbl.integer("type_id")
                 .unsigned()
-                .notNullable()
+                //.notNullable()
                 .references("id")
                 .inTable("types")
                 .onUpdate("CASCADE")
@@ -47,10 +47,39 @@ exports.up = async function (knex) {
             tbl.text("location").notNullable();
             tbl.integer("number_of_attendees").notNullable();
             tbl.integer("max_class_size").notNullable();
+        })
+        .createTable("classes_clients", tbl => {
+            tbl.integer("class_id")
+                .unsigned()
+                .notNullable()
+                .references("id")
+                .inTable("classes")
+                .onDelete("CASCADE")
+                .onUpdate("CASCADE");
+            tbl.integer("client_id")
+                .unsigned()
+                .notNullable()
+                .references("id")
+                .inTable("users")
+                .onDelete("CASCADE")
+                .onUpdate("CASCADE");
+
+            tbl.primary(["class_id", "client_id"]);
         });
+
+    /*     await knex.schema.createTable("users", (tbl) => {
+            tbl.increments()
+            tbl.text("first_name").notNull()
+            tbl.text("last_name").notNull()
+            tbl.text("email").notNull().unique()
+            tbl.text("username").notNull().unique()
+            tbl.text("password").notNull()
+        }) */
 };
 
 exports.down = async function (knex) {
+    /* await knex.schema.dropTableIfExists("users") */
+    await knex.schema.dropTableIfExists("classes_clients");
     await knex.schema.dropTableIfExists("classes");
     await knex.schema.dropTableIfExists("types");
     await knex.schema.dropTableIfExists("users");

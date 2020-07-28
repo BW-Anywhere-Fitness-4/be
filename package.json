@@ -4,8 +4,10 @@
   "description": "Backend for BW-Anywhere-Fitness-4",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js",
+
+    "server": "nodemon -r dotenv/config index.js",
     "test": "cross-env DB_ENV=testing jest --watch",
+
     "start": "node index.js"
   },
   "repository": {
@@ -25,6 +27,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "helmet": "^3.23.3",
+    "jest": "^26.1.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.2",
     "sqlite3": "^5.0.0"
@@ -32,11 +35,13 @@
   "devDependencies": {
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
-    "jest": "^26.1.0",
     "nodemon": "^2.0.4",
     "supertest": "^4.0.2"
   },
-  "jest": {
-    "testEnvironment": "node"
+
+  "engines": {
+    "node": "12.18.2",
+    "npm": "6.14.5"
+
   }
 }
