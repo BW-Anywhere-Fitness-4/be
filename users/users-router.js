@@ -6,7 +6,7 @@ const Users = require("./users-model");
 const restrict = require("../middleware/restrict");
 
 // retrieve all users
-router.get("/api/users", async (req, res, next) => {
+router.get("/api/users", restrict(0), async (req, res, next) => {
     try {
         const users = await Users.findAll();
         res.json(users);
@@ -47,7 +47,7 @@ router.post("/api/users/register", async (req, res, next) => {
             role_id
         } = req.body;
         const user = await Users.findBy({ username }).first();
-        const eMail = await Users.findBy({ email }).first();
+        const mail = await Users.findBy({ email }).first();
 
         if (user) {
             return res.status(409).json({
@@ -55,10 +55,10 @@ router.post("/api/users/register", async (req, res, next) => {
             });
         }
 
-        if (eMail) {
+        if (mail) {
             return res.status(409).json({
                 message: "Email is already taken"
-            })
+            });
         }
 
         const newUser = await Users.add({
@@ -66,7 +66,7 @@ router.post("/api/users/register", async (req, res, next) => {
             last_name,
             email,
             username,
-            password: await bcrypt.hash(password, 14),
+            password: await bcrypt.hashSync(password, 8),
             role_id
         });
 
@@ -88,7 +88,7 @@ router.post("/api/users/login", async (req, res, next) => {
             });
         }
 
-        const passwordValid = await bcrypt.compare(password, user.password);
+        const passwordValid = await bcrypt.compareSync(password, user.password);
 
         if (!passwordValid) {
             return res.status(401).json({

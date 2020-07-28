@@ -12,15 +12,19 @@ function restrict(role) {
                 return res.status(401).json(authError);
             }
 
-            jwt.verify(token, process.env.JWT_SECRET, (err, decodedPayload) => {
+            jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
                 if (err) {
                     return res.status(401).json(authError);
                 }
-                req.token = decodedPayload
-                
-                next();
-                
 
+                if (
+                    role &&
+                    roles.indexOf(decoded.role_id) < roles.indexOf(role)
+                ) {
+                    return res.status(401).json(authError);
+                }
+
+                next();
             });
         } catch (err) {
             next(err);
