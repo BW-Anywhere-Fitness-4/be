@@ -6,7 +6,7 @@ const Users = require("./users-model");
 const restrict = require("../middleware/restrict");
 
 // retrieve all users
-router.get("/api/users", restrict(0), async (req, res, next) => {
+router.get("/api/users", async (req, res, next) => {
     try {
         const users = await Users.findAll();
         res.json(users);
