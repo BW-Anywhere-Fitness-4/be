@@ -27,7 +27,6 @@
     "helmet": "^3.23.3",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.2",
-    "node": "14.5.0",
     "sqlite3": "^5.0.0"
   },
   "devDependencies": {
