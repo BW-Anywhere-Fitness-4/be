@@ -5,7 +5,19 @@ const jwt = require("jsonwebtoken");
 
 const restrict = require("../middleware/restrict");
 
+<<<<<<< HEAD
+// retrieve all users
+router.get("/api/users", async (req, res, next) => {
+    try {
+        const users = await Users.findAll();
+        res.json(users);
+    } catch (err) {
+        next(err);
+    }
+});
+=======
 const router = express.Router();
+>>>>>>> master
 
 //=================
 // GET list of users
