@@ -3,14 +3,10 @@ const db = require("../data/dbConfig");
 // returns all user objects
 async function findAll() {
     return db("classes as c")
-        //.join("users as u", "c.instructor", "=", "u.id")
-        //.join("types as t", "c.type_id", "=", "t.id")
         .select(
             "c.id as class_id",
             "c.class_name",
             "c.instructor",
-           // "u.username as instructor_username",
-            //"t.type",
             "c.class_date",
             "c.class_time",
             "c.duration",
@@ -23,16 +19,11 @@ async function findAll() {
 
 // returns a class with the specified id
 async function findById(id) {
-    // first() returns the first entry in the db matching the query
     return db("classes as c")
-         //.join("users as u", "c.instructor", "=", "u.id")
-         //.join("types as t", "c.type_id", "=", "t.id")
         .select(
             "c.id as class_id",
             "c.class_name",
             "c.instructor",
-            //"u.username as instructor_username",
-           // "t.type",
             "c.class_date",
             "c.class_time",
             "c.duration",
@@ -75,14 +66,10 @@ async function update(changes, id) {
     await db("classes").where({id}).update(changes);
 
     return db("classes as c")
-        //.join("users as u", "c.instructor", "=", "u.id")
-        //.join("types as t", "c.type_id", "=", "t.id")
         .select(
            "c.id as class_id",
             "c.class_name",
             "c.instructor",
-           // "u.username as instructor_username",
-            //"t.type", 
             "c.class_date",
             "c.class_time",
             "c.duration",
