@@ -2,10 +2,10 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const Users = require("./users-model");
 const jwt = require("jsonwebtoken");
+const router = express.Router();
+
 
 const restrict = require("../middleware/restrict");
-
-const router = express.Router();
 
 //=================
 // GET list of users
