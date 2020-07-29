@@ -1,26 +1,33 @@
-Secret Family Recipes
-Backend Project for Lambda School's Build Week, deployed Link is https://back-end-build-weeks.herokuapp.com/
+Backend Project for Lambda School's Build Week, deployed Link is https://build-weeks-be.herokuapp.com/
 
-/--------------------------------------------/ AUTH ROUTES /-----------------------------------/
+**/--------------------------------------------/ AUTH ROUTES /-----------------------------------/**
 
-Register a User method url: /api/users/register
+**Register a User**
+_method url_: `/api/users/register`
 
-http method: [POST]
+_http method_: **[POST]**
 
-Headers
-name	type	required	description
-Content-Type	String	Yes	Must be application/json
-Body
-name	type	required	description
-first_name  String	Yes	Must be unique
-last_name   String	Yes	Must be unique
-username	String	Yes	Must be unique
-email	    String	Yes	Must be unique
-password	String	Yes	Must be unique
-role_id     Integer Yes Must be unique
-Example
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+
+#### Body
+
+| name         | type    | required | description    |
+| ------------ | ------- | -------- | -------------- |
+| `first_name` | String  | Yes      | Must be unique |
+| `last_name`  | String  | Yes      | Must be unique |
+| `email`      | String  | Yes      | Must be unique |
+| `username`   | String  | Yes      | Must be unique |
+| `password`   | String  | Yes      | Must be unique |
+| `role_id`    | integer | Yes      | Must be unique |
+
+#### Example
+
+```
 {
-    
     first_name: "user-01-first",
     last_name: "user-01-last",
     email: "user-01@test.com",
@@ -28,258 +35,696 @@ Example
     password: bcrypt.hashSync("password-01", 14),
     role_id: 1
 }
-Response
-201 (Created)
-Example Response
+```
+
+#### Response
+
+##### 201 (Created)
+
+###### Example Response
+
+```
 {
-  "id": 3,
-  "username": "samim2020",
-  "email": "samim2020@gmail.com",
-  "password": "$2a$16$JHcX.XNj8bppwVij5ypXTunk/MR2qTRNXQ43IuRBt/JjlGOEbOCxe"
+    "user_id": 18,
+    "first_name": "test12",
+    "last_name": "test32",
+    "email": "ddfdfdf@test1.com",
+    "username": "test125",
+    "role": "instructor"
 }
-409 (Conflict)
+```
+
+##### 409 (Conflict)
+
+```
   {
     "message": "User is already taken!"
   }
-/----------------------------------------/
+```
 
-Login a User
-method url: /api/auth/login
+**/----------------------------------------/**
 
-http method: [POST]
+### **Login a User**
 
-Headers
-name	type	required	description
-Content-Type	String	Yes	Must be application/json
-Body
-name	type	required	description
-username	String	Yes	must be registered user
-password	String	Yes	
-Example
+_method url_: `/api/users/login`
+
+_http method_: **[POST]**
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+
+#### Body
+
+| name       | type   | required | description             |
+| ---------- | ------ | -------- | ----------------------- |
+| `username` | String | Yes      | must be registered user |
+| `password` | String | Yes      |                         |
+
+#### Example
+
+```
 {
-	"username": "samim2020",
-	"password": "samim2020"
+	"username": "test5",
+	"password": "abcd1234"
 }
-Response
-200 (Ok)
-no issues logging in
+```
 
-Example response
+#### Response
+
+##### 200 (Ok)
+
+> no issues logging in
+
+###### Example response
+
+```
 {
-  "message": "You logged in successfuly!"
+  "message": "Welcome test5!"
 }
-401 (UnAuthorized)
+```
+
+##### 401 (UnAuthorized)
+
+```
   {
-    message: "Invalid credentials"
+    "You shall not pass!"
   }
-500 (Bad Request)
+```
+
+##### 500 (Bad Request)
+
+```
   {
-    message: "Error logging in",
+    message: "Something went wrong",
     error: {
       "errno": 1,
       "code": "SOME_ERROR"
     }
   }
-/--------------------------------------------/ Recipes ROUTES /-----------------------------------/
+```
 
-Get all Recipes
-method url: /api/recipes
+**/----------------------------------------/**
 
-http method: [GET]
+### \*\*Get users by id
 
-Headers
-name	type	required	description
-Authorization	String	Yes	Authorization token from login
-Response
-200 (Ok)
-Example response
+_method url_: `/api/users/:id`
+
+_http method_: **[GET]**
+
+#### Response
+
+##### 200 (Ok)
+
+###### Example response
+
+```
+{
+  "user_id": 5,
+  "first_name": "user-05-first",
+  "last_name": "user-05-last",
+  "email": "user-05@test.com",
+  "username": "test6",
+  "role": "instructor"
+}
+```
+
+##### 401 (UnAuthorized)
+
+```
+  {
+    message: "shall not pass!"
+  }
+```
+
+##### 500 (Bad Request)
+
+```
+  {
+    message: "Failed to get the class"
+  }
+```
+
+**/----------------------------------------/**
+
+### \*\*Get users with the specified role
+
+_method url_: `/api/users/roles/:role_id`
+
+_http method_: **[GET]**
+
+#### Response
+
+##### 200 (Ok)
+
+###### Example response
+
+```
 [
   {
-    "id": 1,
-    "title": "Beet Hummus",
-    "ingredients": "2, 15 oz. cans of chickpeas / 1, 15 oz. can cut or whole beets, drained (about 8.5 oz) / ½ Cup fresh lemon juice (about 2 ½ lemons) / 2 small garlic cloves, minced / 3 Tbsp. tahini paste / Salt, to taste / Olive oil, to drizzle / Cumin, to garnish",
-    "instructions": "1 - Strain one can of chickpeas and set aside. 2 - Combine half of the first can of drained chickpeas with the whole second can, and warm in their liquid in a small saucepan. Once they come to a gentle simmer, strain out the chickpea juice and blend in a food processor while still warm into a fine purée. 3 - Add in the beets and continue to blend until smooth. 4 - Next, add the tahini, followed by the garlic, lemon juice, and salt. Pulse again until combined. Taste and season with more salt if needed. 5 - Serve garnished with the rest of the chickpeas, a drizzle of olive oil, and a sprinkle of cumin if desired.",
-    "source": "fruitsandveggies.org",
-    "category": "Veggies",
-    "photo": "https://fruitsandveggies.org/wp-content/uploads/2018/12/beet-hummus-thumb-800x267.jpg"
+    "user_id": 2,
+    "first_name": "user-02-first",
+    "last_name": "user-02-last",
+    "email": "user-02@test.com",
+    "username": "user-02",
+    "role": "client"
   },
   {
-    "id": 2,
-    "title": "Quinoa Salad with Corn and Peas",
-    "ingredients": "1 cup uncooked quinoa / 2 cups water / 1 can (15 oz.) Libby’s® Whole Kernel Sweet Corn, drained / 1 can (15 oz.) Libby’s® Sweet Peas, drained / 1⁄2 cup diced red onion / 2 large tomatoes, seeded and diced / 4 oz. fresh mozzarella, diced / 1⁄8 cup chopped fresh parsley / 1 Tbsp lemon juice / 2 Tbsp olive oil",
-    "instructions": "Add quinoa and water to medium pot and bring it to a boil. Cover, then reduce heat to simmer and cook 15 minutes. Remove from heat and let sit covered for 5 minutes. Place into large bowl and fluff with fork. Let cool. ThenAdd corn, peas, onions, tomato, cheese, parsley, lime juice and olive oil. Gently toss mixture until combined.",
-    "source": "fruitsandveggies.org",
-    "category": "Veggies",
-    "photo": "https://fruitsandveggies.org/wp-content/uploads/2019/02/Quinoa%20Salad%20with%20Libbys%20Corn%20and%20Peas%20small-277x218.jpg"
+    "user_id": 3,
+    "first_name": "user-03-first",
+    "last_name": "user-03-last",
+    "email": "user-03@test.com",
+    "username": "user-03",
+    "role": "client"
   },
+  {
+    "user_id": 4,
+    "first_name": "user-04-first",
+    "last_name": "user-04-last",
+    "email": "user-04@test.com",
+    "username": "user-04",
+    "role": "client"
+  },
+  {
+    "user_id": 7,
+    "first_name": "user-07-first",
+    "last_name": "user-07-last",
+    "email": "user-07@test.com",
+    "username": "user-07",
+    "role": "client"
+  },
+  {
+    "user_id": 8,
+    "first_name": "user-08-first",
+    "last_name": "user-08-last",
+    "email": "user-08@test.com",
+    "username": "user-08",
+    "role": "client"
+  },
+  {
+    "user_id": 9,
+    "first_name": "user-09-first",
+    "last_name": "user-09-last",
+    "email": "user-09@test.com",
+    "username": "user-09",
+    "role": "client"
+  },
+  {
+    "user_id": 10,
+    "first_name": "user-10-first",
+    "last_name": "user-10-last",
+    "email": "user-10@test.com",
+    "username": "user-10",
+    "role": "client"
+  },
+  {
+    "user_id": 11,
+    "first_name": "user-11-first",
+    "last_name": "user-11-last",
+    "email": "user-11@test.com",
+    "username": "user-11",
+    "role": "client"
+  },
+  {
+    "user_id": 12,
+    "first_name": "user-12-first",
+    "last_name": "user-12-last",
+    "email": "user-12@test.com",
+    "username": "user-12",
+    "role": "client"
+  },
+  {
+    "user_id": 14,
+    "first_name": "user-14-first",
+    "last_name": "user-14-last",
+    "email": "user-14@test.com",
+    "username": "user-14",
+    "role": "client"
+  },
+  {
+    "user_id": 15,
+    "first_name": "user-15-first",
+    "last_name": "user-15-last",
+    "email": "user-15@test.com",
+    "username": "user-15",
+    "role": "client"
+  }
 ]
-401 (UnAuthorized)
+```
+
+##### 401 (UnAuthorized)
+
+```
   {
     message: "shall not pass!"
   }
-500 (Bad Request)
+```
+
+##### 500 (Bad Request)
+
+```
   {
-    message: "Error logging in",
+    message: "Failed to get the user"
+  }
+```
+
+**/----------------------------------------/**
+
+### **Modify a Single User**
+
+_method url_: `/api/users/:id`
+
+_http method_: **[PUT]**
+
+#### Body
+
+Any of the following
+
+| name       | type    | required | description |
+| ---------- | ------- | -------- | ----------- |
+| `username` | String  | Yes      |             |
+| `password` | Integer | Yes      |             |
+
+#### Example
+
+```
+{
+    "user_id": 5,
+    "first_name": "user-05-first",
+    "last_name": "user-05-last",
+    "email": "user-05@test.com",
+    "username": "test6",
+    "role": "instructor"
+}
+
+```
+
+#### Response
+
+##### 200 (Ok)
+
+##### 401 (UnAuthorized)
+
+```
+  {
+    message: "shall not pass!"
+  }
+
+```
+
+##### 400 (Bad Request)
+
+Body was empty
+
+```
+  {
+    message: "Please provide all the required material."
+  }
+
+```
+
+##### 500 (Bad Request)
+
+```
+{
+    message: "Failed to update the user",
+}
+
+```
+
+**/----------------------------------------/**
+
+### **Delete a User**
+
+_method url_: `/api/users/:id`
+
+_http method_: **[DELETE]**
+
+#### Response
+
+##### 200 (Ok)
+
+###### Example response
+
+```
+{
+    message: "User is deleted!
+}
+
+```
+
+##### 500 (Bad Request)
+
+```
+{
+    message: "Failed to delete the user",
+}
+
+```
+
+
+**/--------------------------------------------/ Classes ROUTES /-----------------------------------/**
+
+### **Get all Classes**
+
+_method url_: `/api/classes`
+
+_http method_: **[GET]**
+
+#### Headers
+
+| name            | type   | required | description                    |
+| --------------- | ------ | -------- | ------------------------------ |
+| `Authorization` | String | Yes      | Authorization token from login |
+
+#### Response
+
+##### 200 (Ok)
+
+###### Example response
+
+```
+[
+  {
+    "class_id": 1,
+    "class_name": "Jogging",
+    "instructor_id": 1,
+    "instructor_username": "user-01",
+    "type": "aerobic",
+    "class_date": "2020-07-25",
+    "class_time": "09:00:00",
+    "duration": 45,
+    "intensity": "moderate",
+    "location": "track",
+    "number_of_attendees": 5,
+    "max_class_size": 10
+  },
+  {
+    "class_id": 2,
+    "class_name": "Weight Training 101",
+    "instructor_id": 5,
+    "instructor_username": "test6",
+    "type": "strength",
+    "class_date": "2020-07-26",
+    "class_time": "11:00:00",
+    "duration": 40,
+    "intensity": "low",
+    "location": "weight room 2a",
+    "number_of_attendees": 4,
+    "max_class_size": 5
+  },
+  {
+    "class_id": 3,
+    "class_name": "Swimming 101",
+    "instructor_id": 6,
+    "instructor_username": "user-06",
+    "type": "aerobic",
+    "class_date": "2020-07-29",
+    "class_time": "15:30:00",
+    "duration": 45,
+    "intensity": "moderate",
+    "location": "pool",
+    "number_of_attendees": 5,
+    "max_class_size": 10
+  },
+  {
+    "class_id": 5,
+    "class_name": "Weight Training 4",
+    "instructor_id": 5,
+    "instructor_username": "test6",
+    "type": "flexibility",
+    "class_date": "2020-07-26",
+    "class_time": "11:00:00",
+    "duration": 40,
+    "intensity": "low",
+    "location": "weight room 2a",
+    "number_of_attendees": 4,
+    "max_class_size": 5
+  },
+  {
+    "class_id": 6,
+    "class_name": "Running 101",
+    "instructor_id": 1,
+    "instructor_username": "user-01",
+    "type": "aerobic",
+    "class_date": "2020-08-07",
+    "class_time": "10:00:00",
+    "duration": 30,
+    "intensity": "high",
+    "location": "track",
+    "number_of_attendees": 5,
+    "max_class_size": 10
+  }
+]
+```
+
+##### 401 (UnAuthorized)
+
+```
+  {
+    message: "shall not pass!"
+  }
+```
+
+##### 500 (Bad Request)
+
+```
+  {
+    message: "Something went wrong",
     error: {
       "errno": 1,
       "code": "SOME_ERROR"
     }
   }
-/----------------------------------------/
+```
 
-Get a single Recipe
-method url: /api/recipes/:id
+**/----------------------------------------/**
 
-http method: [GET]
+### **Get a single Class**
 
-Response
-200 (Ok)
-Example response
+_method url_: `/api/classes/:id`
+
+_http method_: **[GET]**
+
+#### Response
+
+##### 200 (Ok)
+
+###### Example response
+
+```
 {
-  "id": 2,
-  "title": "Quinoa Salad with Corn and Peas",
-  "ingredients": "1 cup uncooked quinoa / 2 cups water / 1 can (15 oz.) Libby’s® Whole Kernel Sweet Corn, drained / 1 can (15 oz.) Libby’s® Sweet Peas, drained / 1⁄2 cup diced red onion / 2 large tomatoes, seeded and diced / 4 oz. fresh mozzarella, diced / 1⁄8 cup chopped fresh parsley / 1 Tbsp lemon juice / 2 Tbsp olive oil",
-  "instructions": "Add quinoa and water to medium pot and bring it to a boil. Cover, then reduce heat to simmer and cook 15 minutes. Remove from heat and let sit covered for 5 minutes. Place into large bowl and fluff with fork. Let cool. ThenAdd corn, peas, onions, tomato, cheese, parsley, lime juice and olive oil. Gently toss mixture until combined.",
-  "source": "fruitsandveggies.org",
-  "category": "Veggies",
-  "photo": "https://fruitsandveggies.org/wp-content/uploads/2019/02/Quinoa%20Salad%20with%20Libbys%20Corn%20and%20Peas%20small-277x218.jpg"
+  "class_id": 1,
+  "class_name": "Jogging",
+  "instructor_id": 1,
+  "instructor_username": "user-01",
+  "type": "aerobic",
+  "class_date": "2020-07-25",
+  "class_time": "09:00:00",
+  "duration": 45,
+  "intensity": "moderate",
+  "location": "track",
+  "number_of_attendees": 5,
+  "max_class_size": 10
 }
-401 (UnAuthorized)
+```
+
+##### 401 (UnAuthorized)
+
+```
   {
     message: "shall not pass!"
   }
-500 (Bad Request)
+```
+
+##### 500 (Bad Request)
+
+```
   {
-    message: "Failed to get the recipe"
+    message: "Failed to get the class"
   }
-/----------------------------------------/
+```
 
-Add a New Recipe
-method url: /api/recipes
+**/----------------------------------------/**
 
-http method: [POST]
+### **Add a New Class**
 
-Body
-name	type	required	description
-title	String	Yes	
-ingredients	String	Yes	
-instructions	String	Yes	
-source	String	Yes	
-category	String	Yes	
-photo	String	Yes	
-Example
+_method url_: `/api/classes`
+
+_http method_: **[POST]**
+
+#### Body
+
+| name                  | type    | required | description |
+| --------------------- | ------- | -------- | ----------- |
+| `class_name`          | String  | Yes      |             |
+| `instructor_id`       | Integer | Yes      |             |
+| `class_date`          | Integer | Yes      |             |
+| `class_time`          | Integer | Yes      |             |
+| `duration`            | Integer | Yes      |             |
+| `intensity`           | String  | Yes      |             |
+| `location`            | String  | Yes      |             |
+| `number_of_attendees` | Integer | Yes      |             |
+| `max_class_size`      | Integer | Yes      |             |
+
+#### Example
+
+```
 {
-  "title": "Pumpkin Overnight Oats",
-	"ingredients": "½ cup oats, dry / ½ cup canned pumpkin / 3 TBSP orange juice / ½ teaspoon pumpkin pie spice / 2 teaspoons maple syrup / 1 TBSP dried cranberries / 1 TBSP pecans, chopped",
-  "instructions": "1 - Mix together oats, pumpkin, orange juice, spice, and maple syrup. 2 - Place in the refrigerator in a covered container and let sit overnight or for a few hours. When ready to eat, top with cranberries and pecans.",
-	  "source": "fruitsandveggies.org",
-    "category": "Veggies",
-  "photo": "https://fruitsandveggies.org/wp-content/uploads/2019/10/leslie-Pumpkin-Overnight-Oats-sized-for-banner-1440x480.jpg"
+    "class_name": "Weight Training 453",
+    "instructor_id": 5,
+    "class_date": "2020-07-26",
+    "class_time": "11:00:00",
+    "duration": 40,
+    "intensity": "low",
+    "location": "weight room 2a",
+    "number_of_attendees": 4,
+    "max_class_size": 5
 }
-Response
-200 (Ok)
-Example response
-{
-  "id": 4,
-  "title": "Pumpkin Overnight Oats",
-  "ingredients": "½ cup oats, dry / ½ cup canned pumpkin / 3 TBSP orange juice / ½ teaspoon pumpkin pie spice / 2 teaspoons maple syrup / 1 TBSP dried cranberries / 1 TBSP pecans, chopped",
-  "instructions": "1 - Mix together oats, pumpkin, orange juice, spice, and maple syrup. 2 - Place in the refrigerator in a covered container and let sit overnight or for a few hours. When ready to eat, top with cranberries and pecans.",
-  "source": "fruitsandveggies.org",
-  "category": "Veggies",
-  "photo": "https://fruitsandveggies.org/wp-content/uploads/2019/10/leslie-Pumpkin-Overnight-Oats-sized-for-banner-1440x480.jpg"
-}
-401 (UnAuthorized)
+```
+
+#### Response
+
+##### 200 (Ok)
+
+##### 401 (UnAuthorized)
+
+```
   {
     message: "shall not pass!"
   }
-400 (Bad Request)
+```
+
+##### 400 (Bad Request)
+
 Body was empty
 
+```
   {
-    message: "Please provide title, instructions, ingredients and photo for the post."
+    message: "Please provide all the required materials."
   }
-500 (Bad Request)
+```
+
+##### 500 (Bad Request)
+
+```
 {
-    message: "Failed to add the recipe",
+    message: "Failed to add the class",
 }
 
-/----------------------------------------/
+```
 
-Modify a Single Recipe
-method url: /api/recipes/:id
+**/----------------------------------------/**
 
-http method: [PUT]
+### **Modify a Single Class**
 
-Body
+_method url_: `/api/classes/:id`
+
+_http method_: **[PUT]**
+
+#### Body
+
 Any of the following
 
-name	type	required	description
-title	String	Yes	
-ingredients	String	Yes	
-instructions	String	Yes	
-source	String	Yes	
-category	String	Yes	
-photo	String	Yes	
-Example
+| name                  | type    | required | description |
+| --------------------- | ------- | -------- | ----------- |
+| `class_name`          | String  | Yes      |             |
+| `instructor_id`       | Integer | Yes      |             |
+| `class_date`          | Integer | Yes      |             |
+| `class_time`          | Integer | Yes      |             |
+| `duration`            | Integer | Yes      |             |
+| `intensity`           | String  | Yes      |             |
+| `location`            | String  | Yes      |             |
+| `number_of_attendees` | Integer | Yes      |             |
+| `max_class_size`      | Integer | Yes      |             |
+
+#### Example
+
+```
 {
-  "title": "Pumpkin Overnight Oats",
-	"ingredients": "½ cup oats, dry / ½ cup canned pumpkin / 3 TBSP orange juice / ½ teaspoon pumpkin pie spice / 2 teaspoons maple syrup / 1 TBSP dried cranberries / 1 TBSP pecans, chopped",
-  "instructions": "1 - Mix together oats, pumpkin, orange juice, spice, and maple syrup. 2 - Place in the refrigerator in a covered container and let sit overnight or for a few hours. When ready to eat, top with cranberries and pecans.",
-	  "source": "fruitsandveggies.org",
-    "category": "Veggies",
-  "photo": "https://fruitsandveggies.org/wp-content/uploads/2019/10/leslie-Pumpkin-Overnight-Oats-sized-for-banner-1440x480.jpg"
+    "class_id": 5,
+    "class_name": "Weight Training 4",
+    "instructor_id": 5,
+    "instructor_username": "test6",
+    "type": "flexibility",
+    "class_date": "2020-07-26",
+    "class_time": "11:00:00",
+    "duration": 40,
+    "intensity": "low",
+    "location": "weight room 2a",
+    "number_of_attendees": 4,
+    "max_class_size": 5
 }
 
-Response
-200 (Ok)
-Example response
-{
-  "id": 4,
-  "title": "Pumpkin Overnight Oats",
-  "ingredients": "½ cup oats, dry / ½ cup canned pumpkin / 3 TBSP orange juice / ½ teaspoon pumpkin pie spice / 2 teaspoons maple syrup / 1 TBSP dried cranberries / 1 TBSP pecans, chopped",
-  "instructions": "1 - Mix together oats, pumpkin, orange juice, spice, and maple syrup. 2 - Place in the refrigerator in a covered container and let sit overnight or for a few hours. When ready to eat, top with cranberries and pecans.",
-  "source": "fruitsandveggies.org",
-  "category": "Veggies",
-  "photo": "https://fruitsandveggies.org/wp-content/uploads/2019/10/leslie-Pumpkin-Overnight-Oats-sized-for-banner-1440x480.jpg"
-}
+```
 
-401 (UnAuthorized)
+#### Response
+
+##### 200 (Ok)
+
+##### 401 (UnAuthorized)
+
+```
   {
     message: "shall not pass!"
   }
 
-400 (Bad Request)
+```
+
+##### 400 (Bad Request)
+
 Body was empty
 
+```
   {
-    message: "Please provide title, instructions, ingredients and photo for the post."
+    message: "Please provide all the required material."
   }
 
-500 (Bad Request)
+```
+
+##### 500 (Bad Request)
+
+```
 {
-    message: "Failed to update the recipe",
-}
-===============================================================================================
-===============================================================================================
-===============================================================================================
-/----------------------------------------/
-
-Delete a Recipe
-method url: /api/recipes/:id
-
-http method: [DELETE]
-
-Response
-200 (Ok)
-Example response
-{
-    message: "Recipe is deleted!
+    message: "Failed to update the class",
 }
 
-500 (Bad Request)
+
+```
+
+**/----------------------------------------/**
+
+### **Delete a Class**
+
+
+_method url_: `/api/classes/:id`
+
+_http method_: **[DELETE]**
+
+#### Response
+
+##### 200 (Ok)
+
+###### Example response
+
+```
 {
-    message: "Failed to delete the recipe",
+    message: "Class is deleted!
 }
+
+```
+
+##### 500 (Bad Request)
+
+```
+{
+    message: "Failed to delete the class",
+}
+
+
+
 Endpoints for Classes
 
 // GET Classes
@@ -349,3 +794,4 @@ Backend for BW-Anywhere-Fitness-4
 1. TRELLO: https://trello.com/b/JjJ3ZOLc/bw-anywhere-fitness-4
 2. GITHUB: https://github.com/BW-Anywhere-Fitness-4
 3. PVD: https://docs.google.com/document/d/1fkh7kFRpKlcdhTLri6i1EcJKL_-_5bIPk4pXvgfb4aE/edit?usp=sharing
+
