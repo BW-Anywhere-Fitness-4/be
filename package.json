@@ -4,8 +4,10 @@
   "description": "Backend for BW-Anywhere-Fitness-4",
   "main": "index.js",
   "scripts": {
+
     "server": "nodemon -r dotenv/config index.js",
     "test": "cross-env DB_ENV=testing jest --watch",
+
     "start": "node index.js"
   },
   "repository": {
@@ -36,8 +38,10 @@
     "nodemon": "^2.0.4",
     "supertest": "^4.0.2"
   },
+
   "engines": {
     "node": "12.18.2",
     "npm": "6.14.5"
+
   }
 }
