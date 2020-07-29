@@ -2,22 +2,10 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const Users = require("./users-model");
 const jwt = require("jsonwebtoken");
+const router = express.Router();
+
 
 const restrict = require("../middleware/restrict");
-
-<<<<<<< HEAD
-// retrieve all users
-router.get("/api/users", async (req, res, next) => {
-    try {
-        const users = await Users.findAll();
-        res.json(users);
-    } catch (err) {
-        next(err);
-    }
-});
-=======
-const router = express.Router();
->>>>>>> master
 
 //=================
 // GET list of users
@@ -115,6 +103,17 @@ router.get("/api/logout", async (req, res, next) => {
     res.send("cookie has been eaten");
   } catch (err) {
     next(err);
+  }
+});
+
+
+// retrieves users with the specified role
+router.get("/api/users/roles/:role_id", async (req, res, next) => {
+  try {
+      const users = await Users.findByRole(req.params.role_id);
+      res.json(users);
+  } catch (err) {
+      next(err);
   }
 });
 
