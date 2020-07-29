@@ -1,14 +1,16 @@
 module.exports = {
-    client: "sqlite3",
-    useNullAsDefault: true,
-    connection: {
-        filename: "./data/anywhere-fitness.db3"
-    },
-    migrations: {
-        directory: "./data/migrations"
-    },
-    seeds: {
-        directory: "./data/seeds"
+    development: {
+        client: "sqlite3",
+        connection: {
+            filename: "./database/anywhere-fitness.db3"
+        },
+        useNullAsDefault: true,
+        migrations: {
+            directory: "./database/migrations"
+        },
+        seeds: {
+            directory: "./database/seeds"
+        }
     },
     // needed when using foreign keys
     pool: {
@@ -17,5 +19,17 @@ module.exports = {
             conn.run("PRAGMA foreign_keys = ON", done); // turn on foreign key enforcement
         }
     },
-  
+    testing: {
+        client: "sqlite3",
+        connection: {
+            filename: "./database/test.db3"
+        },
+        useNullAsDefault: true,
+        migrations: {
+            directory: "./database/migrations"
+        },
+        seeds: {
+            directory: "./database/seeds"
+        }
+    }
 };

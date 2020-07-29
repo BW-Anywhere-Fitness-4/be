@@ -10,19 +10,19 @@ const classesRouter = require("./classes/classes-router");
 
 const server = express();
 
-server.use(logger("long"))
 server.use(cors());
 server.use(helmet());
 server.use(cookieParser());
 server.use(express.json());
 
+server.use(logger("long"));
 server.use(welcomeRouter);
 server.use(usersRouter);
 server.use(classesRouter);
 
 server.get("/", (req, res) => {
     res.json({
-        message: "Welcome to our API"
+        message: "The API is running"
     });
 });
 

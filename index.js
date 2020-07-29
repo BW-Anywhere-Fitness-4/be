@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const classesRouter = require("./classes/classes-router");
-const userRouter = require("./users/users-router");
+const classesRouter = require("./api/classes/classes-router");
+const userRouter = require("./api/users/users-router");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
