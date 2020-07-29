@@ -32,7 +32,7 @@ _http method_: **[POST]**
     last_name: "user-01-last",
     email: "user-01@test.com",
     username: "user-01",
-    password: bcrypt.hashSync("password-01", 14),
+    password: "password-04",
     role_id: 1
 }
 ```
@@ -383,7 +383,6 @@ _http method_: **[DELETE]**
 }
 
 ```
-
 
 **/--------------------------------------------/ Classes ROUTES /-----------------------------------/**
 
