@@ -3,7 +3,7 @@ const router = express.Router();
 const Classes = require("./classes-model");
 
 // Retrieve all classes
-router.get("/api/classes", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
     try {
         const courses = await Classes.findAll();
         res.json(courses);
@@ -13,7 +13,7 @@ router.get("/api/classes", async (req, res, next) => {
 });
 
 // Retrieves a class with the specified id
-router.get("/api/classes/:id", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
     try {
         const course = await Classes.findById(req.params.id);
         res.json(course);
@@ -23,7 +23,7 @@ router.get("/api/classes/:id", async (req, res, next) => {
 });
 
 // Creates a new class
-router.post("/api/classes", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
     try {
         const course = await Classes.add(req.body);
 
@@ -34,7 +34,7 @@ router.post("/api/classes", async (req, res, next) => {
 });
 
 // Updates a current class with the specified id
-router.put("/api/classes/:id", async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
     try {
         const course = await Classes.update(req.params.id, req.body);
         res.json(course);
@@ -44,7 +44,7 @@ router.put("/api/classes/:id", async (req, res, next) => {
 });
 
 // Deletes a class and returns the updated list of classes
-router.delete("/api/classes/:id", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
     try {
         await Classes.remove(req.params.id);
         const courses = await Classes.findAll();
