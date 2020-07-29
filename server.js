@@ -4,9 +4,9 @@ const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const logger = require("./middleware/logger")
 
-const welcomeRouter = require("./welcome/welcome-router");
-const usersRouter = require("./users/users-router");
-const classesRouter = require("./classes/classes-router");
+const welcomeRouter = require("./api/welcome/welcome-router");
+const usersRouter = require("./api/users/users-router");
+const classesRouter = require("./api/classes/classes-router");
 
 const server = express();
 

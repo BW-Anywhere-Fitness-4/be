@@ -1,5 +1,5 @@
 exports.seed = async function (knex) {
-    await knex("classes_clients").insert([
+    await knex("class_clients").insert([
         { class_id: 1, client_id: 2 },
         { class_id: 1, client_id: 7 },
         { class_id: 1, client_id: 10 },

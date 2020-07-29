@@ -1,8 +1,8 @@
 exports.seed = async function (knex) {
     await knex("classes").insert([
-        {   
-             class_name: "Jogging",
-            instructor: "chris",
+        {
+            class_name: "Jogging",
+            instructor_id: 1,
             type_id: 1,
             class_date: "2020-07-25",
             class_time: "09:00:00",
@@ -12,9 +12,9 @@ exports.seed = async function (knex) {
             number_of_attendees: 5,
             max_class_size: 10
         },
-        {   
-             class_name: "Weight Training 101",
-            instructor: "danny",
+        {
+            class_name: "Weight Training 101",
+            instructor_id: 5,
             type_id: 2,
             class_date: "2020-07-26",
             class_time: "11:00:00",
@@ -25,8 +25,8 @@ exports.seed = async function (knex) {
             max_class_size: 5
         },
         {
-             class_name: "Swimming 101",
-            instructor: "jamal" ,
+            class_name: "Swimming 101",
+            instructor_id: 6,
             type_id: 1,
             class_date: "2020-07-29",
             class_time: "15:30:00",
@@ -36,9 +36,9 @@ exports.seed = async function (knex) {
             number_of_attendees: 5,
             max_class_size: 10
         },
-        {   
+        {
             class_name: "Tai Chi",
-            instructor: "ronnie",
+            instructor_id: 13,
             type_id: 4,
             class_date: "2020-08-02",
             class_time: "14:00:00",
@@ -48,9 +48,9 @@ exports.seed = async function (knex) {
             number_of_attendees: 5,
             max_class_size: 10
         },
-        {    
+        {
             class_name: "Yoga 101",
-            instructor: "jessie",
+            instructor_id: 13,
             type_id: 3,
             class_date: "2020-08-04",
             class_time: "13:30:00",
@@ -60,9 +60,9 @@ exports.seed = async function (knex) {
             number_of_attendees: 6,
             max_class_size: 15
         },
-        {    
+        {
             class_name: "Running 101",
-            instructor: "salah",
+            instructor_id: 1,
             type_id: 1,
             class_date: "2020-08-07",
             class_time: "10:00:00",

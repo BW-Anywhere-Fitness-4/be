@@ -8,7 +8,7 @@ const restrict = require("../../middleware/restrict");
 const router = express.Router();
 
 // Retrieve all users
-router.get("/", restrict(0), async (req, res, next) => {
+router.get("/api/users", restrict(0), async (req, res, next) => {
     try {
         const users = await Users.findAll();
         res.json(users);
@@ -18,7 +18,7 @@ router.get("/", restrict(0), async (req, res, next) => {
 });
 
 // Retrieves an user with the specified id
-router.get("/:id", async (req, res, next) => {
+router.get("/api/users/:id", async (req, res, next) => {
     try {
         const user = await Users.findById(req.params.id);
         res.json(user);
@@ -28,7 +28,7 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // Retrieves users with the specified role
-router.get("/roles/:role_id", async (req, res, next) => {
+router.get("/api/users/roles/:role_id", async (req, res, next) => {
     try {
         const users = await Users.findByRole(req.params.role_id);
         res.json(users);
@@ -38,7 +38,7 @@ router.get("/roles/:role_id", async (req, res, next) => {
 });
 
 // Creates a new user in the database
-router.post("/register", async (req, res, next) => {
+router.post("/api/users/register", async (req, res, next) => {
     try {
         const {
             first_name,
@@ -79,7 +79,7 @@ router.post("/register", async (req, res, next) => {
 });
 
 // Creates a login session for a user
-router.post("/login", async (req, res, next) => {
+router.post("/api/users/login", async (req, res, next) => {
     try {
         const { username, password } = req.body;
         const user = await Users.findBy({ username }).first();
@@ -118,7 +118,7 @@ router.post("/login", async (req, res, next) => {
 });
 
 // Updates a current user with the specified id
-router.put("/:id", async (req, res, next) => {
+router.put("/api/users/:id", async (req, res, next) => {
     try {
         const user = await Users.update(req.params.id, req.body);
         res.json(user);
@@ -128,7 +128,7 @@ router.put("/:id", async (req, res, next) => {
 });
 
 // Deletes an user and returns the updated list of users
-router.delete("/:id", async (req, res, next) => {
+router.delete("/api/users/:id", async (req, res, next) => {
     try {
         await Users.remove(req.params.id);
         const users = await Users.findAll();
@@ -139,7 +139,7 @@ router.delete("/:id", async (req, res, next) => {
 });
 
 // Logs user out
-router.get("/logout", async (req, res, next) => {
+router.get("/api/users/logout", async (req, res, next) => {
     try {
         res.clearCookie("token");
         res.send("You have successfully logged out!");
