@@ -17,24 +17,9 @@ function findById(id) {
   return db("users").select("id", "username").where({ id }).first();
 }
 
-// returns all user with the specified role_id
-function findByRole(role_id) {
-  return db("users")
-      .join("roles", "users.role_id", "=", "roles.id")
-      .select(
-          "users.id as user_id",
-          "users.first_name",
-          "users.last_name",
-          "users.email",
-          "users.username",
-          "roles.role"
-      )
-      .where("users.role_id", role_id);
-}
 module.exports = {
   add,
   find,
   findBy,
   findById,
-  findByRole
 };
