@@ -11,7 +11,7 @@ const restrict = require("../middleware/restrict");
 // GET list of users
 //=================
 
-router.get("/api/users", restrict(), async (req, res, next) => {
+router.get("/api/users", async (req, res, next) => {
   try {
     res.json(await Users.find());
   } catch (err) {
