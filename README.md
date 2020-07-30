@@ -3,7 +3,7 @@ Backend Project for Lambda School's Build Week, deployed Link is https://build-w
 **/--------------------------------------------/ AUTH ROUTES /-----------------------------------/**
 
 **Register a User**
-_method url_: `/api/users/register`
+_method url_: `/api/auth/register`
 
 _http method_: **[POST]**
 
@@ -66,7 +66,7 @@ _http method_: **[POST]**
 
 ### **Login a User**
 
-_method url_: `/api/users/login`
+_method url_: `/api/auth/login`
 
 _http method_: **[POST]**
 
