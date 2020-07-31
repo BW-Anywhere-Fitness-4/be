@@ -66,7 +66,7 @@ _http method_: **[POST]**
 
 ### **Login a User**
 
-_method url_: `/api/users/login`
+_method url_: `/api/login`
 
 _http method_: **[POST]**
 
