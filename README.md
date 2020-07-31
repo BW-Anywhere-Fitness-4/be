@@ -3,7 +3,7 @@ Backend Project for Lambda School's Build Week, deployed Link is https://bw-fitn
 **/--------------------------------------------/ AUTH ROUTES /-----------------------------------/**
 
 **Register a User**
-_method url_: `/api/users/register`
+_method url_: `/api/register`
 
 _http method_: **[POST]**
 
@@ -383,6 +383,27 @@ _http method_: **[DELETE]**
 }
 
 ```
+
+**/----------------------------------------/**
+
+### **Logout a User**
+
+_method url_: `/api/logout`
+
+_http method_: **[GET]**
+
+#### Response
+
+##### 200 (Ok)
+
+###### Example response
+
+```
+{
+    message: "cookie has been eaten!"
+}
+```
+
 
 
 **/--------------------------------------------/ Classes ROUTES /-----------------------------------/**
