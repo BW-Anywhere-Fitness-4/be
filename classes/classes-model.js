@@ -1,7 +1,7 @@
 const db = require("../data/dbConfig");
 
 // returns all user objects
-async function findAll() {
+async function find() {
     return db("classes as c")
         .select(
             "c.id as class_id",
@@ -21,7 +21,7 @@ async function findAll() {
 async function findById(id) {
     return db("classes as c")
         .select(
-            "c.id as class_id",
+          "c.id as class_id",
             "c.class_name",
             "c.instructor",
             "c.class_date",
@@ -88,7 +88,7 @@ async function remove(id) {
 }
 
 module.exports = {
-    findAll,
+    find,
     findById,
     add,
     update,

@@ -5,9 +5,9 @@ const Classes = require("./classes-model");
 // retrieve all classes
 router.get("/api/classes", async (req, res, next) => {
   try {
-    const courses = await Classes.findAll();
+    const courses = await Classes.find();
     res.json(courses);
-  } catch (err) {
+  } catch(err) {
     next(err);
   }
 });
