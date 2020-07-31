@@ -1,6 +1,6 @@
 Backend Project for Lambda School's Build Week, deployed Link is https://bw-fitness.herokuapp.com/
 
-**/--------------------------------------------/ AUTH ROUTES /-----------------------------------/**
+**/--------------------------------------------/ USERS ROUTES /-----------------------------------/**
 
 **Register a User**
 _method url_: `/api/register`
