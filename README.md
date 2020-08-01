@@ -717,7 +717,7 @@ _http method_: **[DELETE]**
 
 ```
 {
-    message: "Failed to delete the class",
+    message: "Failed to delete the class.",
 }
 
 ```
