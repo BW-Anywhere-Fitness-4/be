@@ -1,71 +1,58 @@
 const express = require("express");
-const bcrypt = require("bcryptjs");
 const Users = require("./users-model");
-const jwt = require("jsonwebtoken");
+const restrict = require("../../middleware/restrict");
 
 const router = express.Router();
 
 // Retrieve all users
-router.get('/', async (req, res, next) => {
-	try {
-		const users  = await Users.findAll();
-		res.json(users);
-	} catch (err) {
-		next(err);
-	}
-})
+router.get("/", async (req, res, next) => {
+    try {
+        const users = await Users.findAll();
+        res.json(users);
+    } catch (err) {
+        next(err);
+    }
+});
 
 // Retrieves an user with the specified id
-router.get('/:id', async (req, res, next) => {
-	try {
-		const user  = await Users.findById(req.params.id);
-		res.json(user);
-	} catch (err) {
-		next(err);
-	}
+router.get("/:id", async (req, res, next) => {
+    try {
+        const user = await Users.findById(req.params.id);
+        res.json(user);
+    } catch (err) {
+        next(err);
+    }
 });
 
 // Retrieves users with the specified role
-router.get('/roles/:role_id', async (req, res, next) => {
-	try {
-		const users  = await Users.findByRole(req.params.role_id);
-		res.json(users);
-	} catch (err) {
-		next(err);
-	}
-})
-
-// Updates a current user with the specified id
-router.put('/:id', async (req, res, next) => {
-	try {
-		const user = await Users.update(req.params.id, req.body);
-		res.json(user);
-	} catch (err) {
-		next(err);
-	}
+router.get("/roles/:role_id", async (req, res, next) => {
+    try {
+        const users = await Users.findByRole(req.params.role_id);
+        res.json(users);
+    } catch (err) {
+        next(err);
+    }
 });
 
+// Updates a current user with the specified id
+router.put("/:id", async (req, res, next) => {
+    try {
+        const user = await Users.update(req.params.id, req.body);
+        res.json(user);
+    } catch (err) {
+        next(err);
+    }
+});
 
 // Deletes an user and returns the updated list of users
-router.delete('/:id', async (req, res, next) => {
-	try {
-		await Users.remove(req.params.id);
-		const users  = await Users.findAll();
-		res.json(users);
-	} catch (err) {
-		next(err)
-	}
-})
-
-// Logs user out
-router.get('/logout', async (req, res, next) => {
-	try {
-		res.clearCookie('token');
-		res.send('You have successfully logged out!');
-	} catch (err) {
-		next(err);
-	}
-})
-
+router.delete("/:id", async (req, res, next) => {
+    try {
+        await Users.remove(req.params.id);
+        const users = await Users.findAll();
+        res.json(users);
+    } catch (err) {
+        next(err);
+    }
+});
 
 module.exports = router;

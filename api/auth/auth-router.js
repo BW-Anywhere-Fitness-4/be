@@ -8,6 +8,10 @@ const router = express.Router();
 // Creates a new user in the database
 router.post("/register", async (req, res, next) => {
     try {
+        // const newUser = req.body;
+        // await Users.add(newUser);
+        // res.status(201).json(newUser);
+
         const {
             first_name,
             last_name,
@@ -17,17 +21,10 @@ router.post("/register", async (req, res, next) => {
             role_id
         } = req.body;
         const user = await Users.findBy({ username }).first();
-        const mail = await Users.findBy({ email }).first();
 
         if (user) {
             return res.status(409).json({
                 message: "Username is already taken"
-            });
-        }
-
-        if (mail) {
-            return res.status(409).json({
-                message: "Email is already taken"
             });
         }
 
@@ -36,7 +33,7 @@ router.post("/register", async (req, res, next) => {
             last_name,
             email,
             username,
-            password: await bcrypt.hashSync(password, 8),
+            password: await bcrypt.hash(password, 14),
             role_id
         });
 
@@ -80,6 +77,16 @@ router.post("/login", async (req, res, next) => {
         res.json({
             message: `Welcome ${user.username}!`
         });
+    } catch (err) {
+        next(err);
+    }
+});
+
+// Logs user out
+router.get("/logout", async (req, res, next) => {
+    try {
+        res.send("You have successfully logged out!");
+        res.clearCookie("token");
     } catch (err) {
         next(err);
     }

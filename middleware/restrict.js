@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 
+const roles = [0, 1, 2];
+
 function restrict(role) {
     return async (req, res, next) => {
         const authError = {

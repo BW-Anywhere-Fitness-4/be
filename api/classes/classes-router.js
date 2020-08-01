@@ -1,6 +1,6 @@
 const express = require("express");
-const router = express.Router();
 const Classes = require("./classes-model");
+const router = express.Router();
 
 // Retrieve all classes
 router.get("/", async (req, res, next) => {
@@ -25,9 +25,9 @@ router.get("/:id", async (req, res, next) => {
 // Creates a new class
 router.post("/", async (req, res, next) => {
     try {
-        const course = await Classes.add(req.body);
-
-        res.status(201).json(course);
+        const newClass = req.body;
+        await Classes.add(newClass);
+        res.status(201).json(newClass);
     } catch (err) {
         next(err);
     }

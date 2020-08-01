@@ -708,7 +708,7 @@ _http method_: **[DELETE]**
 
 ```
 {
-    message: "Class is deleted!
+    message: "removed": 1
 }
 
 ```

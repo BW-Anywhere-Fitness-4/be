@@ -1,5 +1,16 @@
 const db = require("../../database/dbConfig");
 
+// Exports all helper functions for use in users-router.js
+module.exports = {
+    findAll,
+    findById,
+    findByRole,
+    findBy,
+    add,
+    update,
+    remove
+};
+
 // Returns all user objects
 async function findAll() {
     return db("users")
@@ -11,7 +22,8 @@ async function findAll() {
             "users.email",
             "users.username",
             "roles.role"
-        );
+        )
+        .orderBy("users.id");
 }
 
 // Returns the user object with the specified id
@@ -47,7 +59,7 @@ function findByRole(role_id) {
 }
 
 function findBy(filter) {
-    return db("users").where(filter);
+    return db("users").select("username", "password").where(filter);
 }
 
 // Adds a user object to the database
@@ -90,13 +102,3 @@ async function update(id, changes) {
 async function remove(id) {
     return await db("users").where({ id }).del();
 }
-
-module.exports = {
-    findAll,
-    findById,
-    findByRole,
-    findBy,
-    add,
-    update,
-    remove
-};

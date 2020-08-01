@@ -1,5 +1,14 @@
 const db = require("../../database/dbConfig");
 
+// Exports all helper functions for use in users-router.js
+module.exports = {
+    findAll,
+    findById,
+    add,
+    update,
+    remove
+};
+
 // Returns all user objects
 async function findAll() {
     return db("classes")
@@ -18,7 +27,8 @@ async function findAll() {
             "location",
             "number_of_attendees",
             "max_class_size"
-        );
+        )
+        .orderBy("classes.id");
 }
 
 // Returns a class with the specified id
@@ -45,7 +55,6 @@ async function findById(id) {
         .first();
 }
 
-
 // Adds a user object to the database
 async function add(course) {
     const [id] = await db("classes").insert(course);
@@ -71,7 +80,7 @@ async function add(course) {
         .first();
 }
 
-// Updates a current class with the specified changes
+// Upclass_dates a current class with the specified changes
 async function update(id, changes) {
     await db("classes").where({ id }).update(changes);
 
@@ -100,11 +109,3 @@ async function update(id, changes) {
 async function remove(id) {
     return db("classes").where({ id }).del();
 }
-
-module.exports = {
-    findAll,
-    findById,
-    add,
-    update,
-    remove
-};
