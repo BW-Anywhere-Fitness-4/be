@@ -1,9 +1,9 @@
 Backend Project for Lambda School's Build Week, deployed Link is https://bw-fitness.herokuapp.com/
 
-**/--------------------------------------------/ AUTH ROUTES /-----------------------------------/**
+**/--------------------------------------------/ USERS ROUTES /-----------------------------------/**
 
 **Register a User**
-_method url_: `/api/users/register`
+_method url_: `/api/register`
 
 _http method_: **[POST]**
 
@@ -66,7 +66,7 @@ _http method_: **[POST]**
 
 ### **Login a User**
 
-_method url_: `/api/users/login`
+_method url_: `/api/login`
 
 _http method_: **[POST]**
 
@@ -383,6 +383,27 @@ _http method_: **[DELETE]**
 }
 
 ```
+
+**/----------------------------------------/**
+
+### **Logout a User**
+
+_method url_: `/api/logout`
+
+_http method_: **[GET]**
+
+#### Response
+
+##### 200 (Ok)
+
+###### Example response
+
+```
+{
+    message: "cookie has been eaten!"
+}
+```
+
 
 
 **/--------------------------------------------/ Classes ROUTES /-----------------------------------/**

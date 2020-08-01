@@ -93,6 +93,16 @@ router.post("/api/login", async (req, res, next) => {
   }
 });
 
+// Retrieves an user with the specified id
+router.get('/api/users/:id', async (req, res, next) => {
+	try {
+		const user  = await Users.findById(req.params.id);
+		res.json(user);
+	} catch (err) {
+		next(err);
+	}
+});
+
 //=================
 // GET :: LOGOUT
 //=================
