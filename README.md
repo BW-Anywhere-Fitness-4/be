@@ -1,4 +1,4 @@
-Backend Project for Lambda School's Build Week, deployed Link is https://build-weeks-be.herokuapp.com/
+Backend Project for Lambda School's Build Week, deployed Link is https://be-bw-anywherefitness.herokuapp.com/
 
 **/--------------------------------------------/ AUTH ROUTES /-----------------------------------/**
 
